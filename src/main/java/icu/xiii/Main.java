@@ -1,4 +1,7 @@
-package icu.xiii.logger;
+package icu.xiii;
+
+import icu.xiii.logger.Logger;
+import icu.xiii.service.TestService;
 
 public class Main {
 
