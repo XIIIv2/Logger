@@ -17,7 +17,9 @@ public class Test2Service {
         logger.debug("Running Test2Service constructor!");
     }
 
-    public void runTest() {
+    public Test2Service runTest() {
         logger.info("Running Test2Service::runTest()");
+
+        return this;
     }
 }

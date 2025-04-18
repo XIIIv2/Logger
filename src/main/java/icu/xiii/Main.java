@@ -19,9 +19,11 @@ public class Main {
                 .runTest();
 
         new Test2Service()
+                .runTest()
                 .runTest();
 
         new Test2Service(Logger.getInstance())
+                .runTest()
                 .runTest();
     }
 
