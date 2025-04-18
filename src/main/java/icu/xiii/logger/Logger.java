@@ -4,6 +4,7 @@ import icu.xiii.Constants;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ public class Logger {
 
     private final String id;
     private final DateTimeFormatter dateTimeFormatter;
+    private final Path logFilePath;
 
     private Logger() {
         this.id = "logger#" + new Random()
@@ -23,6 +25,8 @@ public class Logger {
 
         this.dateTimeFormatter = DateTimeFormatter
                 .ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        this.logFilePath = Paths.get(Constants.LOG_BASE_PATH + "log.txt");
     }
 
     public static Logger getInstance() {
@@ -51,7 +55,7 @@ public class Logger {
 
         try {
             Files.writeString(
-                    Paths.get(Constants.LOG_BASE_PATH + "log.txt"),
+                    logFilePath,
                     logMsg,
                     StandardOpenOption.CREATE,
                     StandardOpenOption.APPEND
