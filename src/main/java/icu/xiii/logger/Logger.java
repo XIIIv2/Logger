@@ -13,10 +13,14 @@ public class Logger {
     private static volatile Logger instance;
 
     private final String id;
+    private final DateTimeFormatter dateTimeFormatter;
 
     private Logger() {
-        Random random = new Random();
-        this.id = "logger#" + random.nextInt(100);
+        this.id = "logger#" + new Random()
+                .nextInt(100);
+
+        this.dateTimeFormatter = DateTimeFormatter
+                .ofPattern("dd-MM-yyyy HH:mm:ss");
     }
 
     public static Logger getInstance() {
@@ -34,8 +38,7 @@ public class Logger {
 
     public void write(String msg, String lvl) {
         String logMsg = String.format("(%s) [%s] %s - %s%n",
-                DateTimeFormatter
-                        .ofPattern("dd-MM-yyyy HH:mm:ss")
+                dateTimeFormatter
                         .format(LocalDateTime.now()),
                 lvl.toUpperCase(),
                 this.id,
@@ -52,7 +55,7 @@ public class Logger {
                     StandardOpenOption.APPEND
             );
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error writing to log file: " + e.getMessage());
         }
     }
 
