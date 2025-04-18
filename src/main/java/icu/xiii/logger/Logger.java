@@ -1,5 +1,11 @@
 package icu.xiii.logger;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class Logger {
@@ -26,23 +32,39 @@ public class Logger {
         return localInstance;
     }
 
-    public String getId() {
-        return this.id;
-    }
+    public void write(String msg, String lvl) {
+        String logMsg = String.format("(%s) [%s] %s - %s%n",
+                DateTimeFormatter
+                        .ofPattern("dd-MM-yyyy HH:mm:ss")
+                        .format(LocalDateTime.now()),
+                lvl.toUpperCase(),
+                this.id,
+                msg
+        );
 
-    public void write(String msg) {
-        System.out.println(this.id + ": " + msg);
+        System.out.print(logMsg);
+
+        try {
+            Files.writeString(
+                    Paths.get(Constants.LOG_BASE_PATH + "log.txt"),
+                    logMsg,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND
+            );
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void info(String msg) {
-        this.write("[INFO] - " + msg);
+        this.write(msg, "info");
     }
 
     public void debug(String msg) {
-        this.write("[DEBUG] - " + msg);
+        this.write(msg, "debug");
     }
 
     public void warn(String msg) {
-        this.write("[WARN] - " + msg);
+        this.write(msg, "warn");
     }
 }
