@@ -2,6 +2,7 @@ package icu.xiii;
 
 import icu.xiii.logger.Logger;
 import icu.xiii.service.TestService;
+import icu.xiii.service.Test2Service;
 
 public class Main {
 
@@ -14,7 +15,14 @@ public class Main {
 
         loggerTest3();
 
-        new TestService().runTest();
+        new TestService()
+                .runTest();
+
+        new Test2Service()
+                .runTest();
+
+        new Test2Service(Logger.getInstance())
+                .runTest();
     }
 
     private static void loggerTest3() {
