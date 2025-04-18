@@ -4,6 +4,8 @@ target/
 !**/src/test/**/target/
 
 .idea/
+logs/
+!logs/.gitkeep
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
